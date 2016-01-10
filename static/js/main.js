@@ -17,6 +17,7 @@ function setGroupOn(isOn) {
   user.setGroupState(0,
   {
     "on": isOn,
+    "bri": 254
   },
   function(data) {
     console.log('On/off set');
