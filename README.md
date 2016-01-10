@@ -7,4 +7,4 @@ Enter the IP address of your bridge, press the "link" button on you bridge, and 
 
 # Github page
 The gh-pages branch is live on github pages
-Visit [teosborne.github.io/gel2hue](teosborne.github.io/gel2hue).
+Visit [teosborne.github.io/gel2hue](http://teosborne.github.io/gel2hue).
