@@ -12,6 +12,20 @@ $( document ).ready(function() {
 //
 // LIGHT STATE METHODS
 //
+function setGroupOn(isOn) {
+  console.log('Setting on/off');
+  user.setGroupState(0,
+  {
+    "on": isOn,
+  },
+  function(data) {
+    console.log('On/off set');
+  },
+  function(data) {
+    console.log('Set group failed: ', JSON.stringify(data));
+  });
+}
+
 function setGroupColor(XY) {
   console.log('Setting color');
   user.setGroupState(0,
@@ -72,6 +86,10 @@ function selectMfg(name) {
 
     case 'gam':
       index = 321; // temp
+      break;
+
+    case 'random':
+      index = Math.floor(Math.random() * gelsData.length);
       break;
 
     default:

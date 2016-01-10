@@ -3,14 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Gel2Hue</title>
     <!-- React -->
-    <script src="static/js/vendor/react.js"></script>
-    <script src="static/js/vendor/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-
+    <!--
+      <script src="static/js/vendor/react.js"></script>
+      <script src="static/js/vendor/react-dom.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    -->
 
     <!-- Bootstrap -->
       <!-- Latest compiled and minified CSS -->
@@ -42,12 +43,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#" onclick="selectMfg()">Home</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#" onclick="forgetBridge()">Disconnect</a></li>
-              </ul>
-            </li>
+            <li><a href="#" onclick="forgetBridge()">Disconnect</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -62,10 +58,17 @@
         <a class="btn btn-default" href="#" role="button" onclick="connectNewUser($('#bridgeIp').val())">Connect</a>
       </section>
 
-      <section id="colorNav" class="btn-group" style="margin-top:90px;">
-        <button class="btn btn-sm btn-default" onclick="selectMfg('rosco')">Rosco</button>
-        <button class="btn btn-sm btn-default" onclick="selectMfg('lee')">Lee</button>
-        <button class="btn btn-sm btn-default" onclick="selectMfg('gam')">Gam</button>
+      <section id="colorNav" style="margin-top:90px;">
+        <div class="btn-group">
+          <button class="btn btn-default" onclick="setGroupOn(true)">On</button>
+          <button class="btn btn-default" onclick="setGroupOn(false)">Off</button>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-default" onclick="selectMfg('rosco')">Rosco</button>
+          <button class="btn btn-default" onclick="selectMfg('lee')">Lee</button>
+          <button class="btn btn-default" onclick="selectMfg('gam')">Gam</button>
+          <button class="btn btn-default" onclick="selectMfg('random')">Random</button>
+        </div>
       </section>
 
       <section id="colorChooser" style="margin-top:25px;">
@@ -91,7 +94,7 @@
 
     <script id="template" type="x-tmpl-mustache">
       {{#.}}
-      <div style="height: 60px; width:60px; background-color:rgb{{ RGB }};"><p style="margin-top: 15px;" class="text-center">{{ ColorCode }}</sp></div>
+      <div style="height: 100px; width:100px; background-color:rgb{{ RGB }};"><p style="margin-top: 40px;" class="text-center">{{ ColorCode }}</sp></div>
       {{/.}}
     </script>
 
@@ -127,13 +130,16 @@
       $gallery.on( 'cellSelect', function() {
         console.log('Flickity select ' + flkty.selectedIndex + ' color: ' + gelsData[flkty.selectedIndex].ColorCode);
 
-        setGroupColorGelIndex(flkty.selectedIndex);
-
         // Show details
         var dt = $('#detailsTemplate').html();
         Mustache.parse(dt);   // optional, speeds up future uses
         var rendered = Mustache.render(dt, gelsData[flkty.selectedIndex]);
         $('#colorDetails').html(rendered);
+
+        // Update light state
+        setGroupColorGelIndex(flkty.selectedIndex);
+
+
       });
     </script>
 
